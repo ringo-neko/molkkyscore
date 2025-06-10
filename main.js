@@ -179,7 +179,7 @@ async function gamemain() {
           ctx.font = 6*size/100+"px sans-serif";
           ctx.fillStyle="rgb(255, 255, 255)";
           y_only=(-p)*square_1*size/100+size*1.5-size/100*square_2 + square_2*size/200
-          ctx.fillText("="+score,canvas.width*0.8,y_only-size/30);
+          ctx.fillText("="+score+"点",canvas.width*0.8,y_only-size/30);
           ctx.font = 6*size/100+"px sans-serif";
           ctx.fillText(["","x","xx","xxx"][batu],canvas.width*0.8,y_only);
         }
