@@ -111,9 +111,9 @@ async function gamemain() {
       else if (scene=="playing") {
         ctx.textAlign="left";
         ctx.textBaseline="top";
-        ctx.font = 8*size/100+"px sans-serif";
+        ctx.font = 6*size/100+"px sans-serif";
         ctx.fillStyle="rgb(255, 255, 255)";
-        ctx.fillText("プレイヤー"+(turn%ninnzuu+1)+"の番です。", 0,0);
+        ctx.fillText("プレイヤー"+(turn%ninnzuu+1)+"の番です。ターン"+(turn+1), 0,0);
         keyaction=[10,11,12,"X",7,8,9,"undo",4,5,6,"enter",1,2,3,"enter"]
         let square_1=15;
         let square_2=10;
@@ -241,12 +241,7 @@ async function gamemain() {
             }
           }
         }
-        if (touched!=false) {
-          scene="title";
-        }
-        if (touched!=false) {
-          touched=false;
-        }
+        
         a=[]
         for(let i=0;i<ninnzuu;i++) {
           if (!losed[i]) {
@@ -264,6 +259,12 @@ async function gamemain() {
           ctx.font = 6*size/100+"px sans-serif";
           ctx.fillStyle="rgb(255, 255, 255)";
           ctx.fillText("勝者:プレイヤー"+a[0]+"！！",canvas.width*0.5,canvas.height*0.5);
+          if (touched!=false) {
+            scene="title";
+          }
+        }
+        if (touched!=false) {
+          touched=false;
         }
         
       }
