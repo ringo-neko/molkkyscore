@@ -1,4 +1,4 @@
-//https://qiita.com/teloppy_com/items/cd483807813af5a4a38aに感謝。
+//https://qiita.com/teloppy_com/items/cd483807813af5a4a38aに感謝
 const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//timeはミリ秒
 
 async function gamemain() {
