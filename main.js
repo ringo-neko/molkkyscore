@@ -179,6 +179,7 @@ async function gamemain() {
         
         ctx.fillStyle="rgb(27, 72, 0)";
         ctx.fillRect(canvas.width*0.8, canvas.height*0.5, canvas.width*0.2, canvas.height*0.5);
+        losed=[];
         for(let p=0;p<ninnzuu;p++) {
           //スコア計算
           let score=0;
