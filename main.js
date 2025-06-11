@@ -9,7 +9,7 @@ async function gamemain() {
     const ctx = canvas.getContext("2d");
     canvas.addEventListener('mousedown', (e) => {(touched=e)});
     var touched=false;
-    let ninnzuu=3;
+    ninnzuu=3;
     while (true) {
       
       let begin = Date.now();
@@ -117,7 +117,6 @@ async function gamemain() {
             exit = -1;
             for(let i=0;i<ninnzuu;i++) {
               player_scores[player_scores.length]=[]
-              losed[losed.length]=false
             }
             
           }
@@ -181,12 +180,18 @@ async function gamemain() {
         ctx.fillRect(canvas.width*0.8, canvas.height*0.5, canvas.width*0.2, canvas.height*0.5);
         losed=[];
         losed_undo=[];
+        break_ok=false;
         for(let p=0;p<ninnzuu;p++) {
           //スコア計算
           let score=0;
           let batu =0;
-          losed[p]=false;
-          losed_undo[p]=false;
+          losed[ninnzuu-1-p]=false;
+          losed_undo[ninnzuu-1-p]=false;
+
+          for(let i=0;i<ninnzuu;i++) {
+            losed_undo[losed_undo.length]=false
+            losed[losed.length]=false
+          }
           for(let i=0;i<player_scores[ninnzuu-1-p].length;i++) {
             if(player_scores[ninnzuu-1-p][i]=="X") {
               batu++;
@@ -195,7 +200,7 @@ async function gamemain() {
               batu=0;
               score+=player_scores[ninnzuu-1-p][i]
             }
-            if(batu==3 && i==player_scores[ninnzuu-1-p].length-1) {
+            if(batu==3 && i==player_scores[ninnzuu-1-p].length-1 && p==(turn-1)%ninnzuu) {
               losed_undo[ninnzuu-1-p]=true;
             }
             if(batu==3) {
@@ -207,11 +212,16 @@ async function gamemain() {
             }
             if(score==50) {
               for(let player_lose=0;player_lose<ninnzuu;player_lose++) {
-                if(player_lose!=p) {
+                if(player_lose!=ninnzuu-1-p) {
                   losed[player_lose]=true
                 }
               }
+              break_ok=true;
+              break;
             }
+          }
+          if(break_ok) {
+            break;
           }
           ctx.textAlign="left";
           ctx.textBaseline="middle";
@@ -286,7 +296,7 @@ async function gamemain() {
         a=[]
         for(let i=0;i<ninnzuu;i++) {
           if (!losed[i]) {
-            a[a.length]=ninnzuu-i
+            a[a.length]=i
           }
         }
         no_hannnou=false
@@ -299,7 +309,7 @@ async function gamemain() {
           ctx.textBaseline="middle";
           ctx.font = 6*size/100+"px sans-serif";
           ctx.fillStyle="rgb(255, 255, 255)";
-          ctx.fillText("勝者:プレイヤー"+a[0]+"！！",canvas.width*0.5,canvas.height*0.5);
+          ctx.fillText("勝者:プレイヤー"+(a[0]+1)+"！！",canvas.width*0.5,canvas.height*0.5);
           if (touched!=false) {
             scene="title";
           }
