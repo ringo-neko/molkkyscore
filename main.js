@@ -160,7 +160,7 @@ async function gamemain() {
           for(let p=0;p<ninnzuu;p++) {
             
             ctx.fillStyle="rgb(175, 137, 0)";
-            if(losed[p]) {
+            if(losed[ninnzuu-1-p]) {
               ctx.fillStyle="rgb(175, 58, 0)";
             }
             ctx.fillRect(i*square_1*size/100-xhosei ,(-p)*square_1*size/100+size*1.5-size/100*square_2,square_2*size/100,square_2*size/100)
@@ -180,10 +180,13 @@ async function gamemain() {
         ctx.fillStyle="rgb(27, 72, 0)";
         ctx.fillRect(canvas.width*0.8, canvas.height*0.5, canvas.width*0.2, canvas.height*0.5);
         losed=[];
+        losed_undo=[];
         for(let p=0;p<ninnzuu;p++) {
           //スコア計算
           let score=0;
           let batu =0;
+          losed[p]=false;
+          losed_undo[p]=false;
           for(let i=0;i<player_scores[ninnzuu-1-p].length;i++) {
             if(player_scores[ninnzuu-1-p][i]=="X") {
               batu++;
@@ -192,8 +195,11 @@ async function gamemain() {
               batu=0;
               score+=player_scores[ninnzuu-1-p][i]
             }
+            if(batu==3 && i==player_scores[ninnzuu-1-p].length-1) {
+              losed_undo[ninnzuu-1-p]=true;
+            }
             if(batu==3) {
-              losed[p]=true;
+              losed[ninnzuu-1-p]=true;
               break;
             }
             if(score>50) {
@@ -211,12 +217,14 @@ async function gamemain() {
           ctx.textBaseline="middle";
           ctx.font = 6*size/100+"px sans-serif";
           ctx.fillStyle="rgb(255, 255, 255)";
+
+
+          //y_only=(-(ninnzuu-1-p))*square_1*size/100+size*1.5-size/100*square_2 + square_2*size/200
           y_only=(-p)*square_1*size/100+size*1.5-size/100*square_2 + square_2*size/200
           ctx.fillText("="+score+"点",canvas.width*0.8,y_only-size/30);
           ctx.font = 6*size/100+"px sans-serif";
           ctx.fillText(["","x","xx","xxx"][batu],canvas.width*0.8,y_only);
         }
-        
 
         ctx.fillStyle="rgb(175, 137, 0)";
         ctx.fillRect(size*3/4+2,2.5*size/6+size*0.1+2,size/4-4,size/6-4)
@@ -246,7 +254,7 @@ async function gamemain() {
                         if(selected_action=="undo") {
                           if(turn!=0) {
                             turn--;
-                            while(losed[turn%ninnzuu]) {
+                            while(!losed_undo[turn%ninnzuu]&&losed[turn%ninnzuu]) {
                               turn--;
                             }
                             player_scores[turn%ninnzuu].pop();
