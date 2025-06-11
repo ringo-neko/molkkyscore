@@ -33,6 +33,11 @@ async function gamemain() {
         ctx.font = 24*size/100+"px sans-serif";
         ctx.fillStyle="rgb(255, 255, 255)";
         ctx.fillText("モルック", size/2, 0);
+
+
+        ctx.fillStyle="rgb(175, 137, 0)";
+        ctx.fillRect(size*0.2,0.6*size,  size*0.6,0.15*size);
+        ctx.fillStyle="rgb(255, 255, 255)";
         ctx.font = 12*size/100+"px sans-serif";
         ctx.fillText("開始", size/2, 0.6*size);
         //7 9 8 .
@@ -75,9 +80,24 @@ async function gamemain() {
         ctx.font = 12*size/100+"px sans-serif";
         ctx.fillText("人数："+ninnzuu, size/2, 0*size);
 
+
+        ctx.fillStyle="rgb(175, 137, 0)";
+        ctx.fillRect(0,size*0.15,  size,size*0.15);
+        ctx.fillStyle="rgb(255, 255, 255)";
         ctx.fillText("ふやす", size/2, 0.15*size);
+
+        ctx.fillStyle="rgb(203, 159, 0)";
+        ctx.fillRect(0,size*0.3,  size,size*0.15);
+        ctx.fillStyle="rgb(255, 255, 255)";
         ctx.fillText("へらす", size/2, 0.3*size);
+
+
         ctx.font = 24*size/100+"px sans-serif";
+
+
+        ctx.fillStyle="rgb(175, 137, 0)";
+        ctx.fillRect(0,size,  size,size*0.5);
+        ctx.fillStyle="rgb(255, 255, 255)";
         ctx.fillText("プレイ！", size/2, 1*size);
         if (touched!=false) {
           let y=touched.offsetY
@@ -93,6 +113,8 @@ async function gamemain() {
             selected_action=-1
             player_scores=[]
             losed=[]
+            no_hannnou=false;
+            exit = -1;
             for(let i=0;i<ninnzuu;i++) {
               player_scores[player_scores.length]=[]
               losed[losed.length]=false
@@ -109,6 +131,16 @@ async function gamemain() {
         }
       }
       else if (scene=="playing") {
+        ctx.fillStyle="rgb(175, 35, 0)";
+        ctx.fillRect(size*0.9, 0, size*0.2,size*0.1)
+        ctx.textAlign="right";
+        ctx.textBaseline="top";
+        ctx.font = 3*size/100+"px sans-serif";
+        ctx.fillStyle="rgb(255, 255, 255)";
+        ctx.fillText("やめる", size,0);
+
+
+
         ctx.textAlign="left";
         ctx.textBaseline="top";
         ctx.font = 6*size/100+"px sans-serif";
@@ -144,7 +176,7 @@ async function gamemain() {
             ctx.fillText(text, xy[0],xy[1]);
           }
         }
-
+        
         ctx.fillStyle="rgb(27, 72, 0)";
         ctx.fillRect(canvas.width*0.8, canvas.height*0.5, canvas.width*0.2, canvas.height*0.5);
         for(let p=0;p<ninnzuu;p++) {
@@ -263,6 +295,50 @@ async function gamemain() {
             scene="title";
           }
         }
+        if(touched!=false && (!no_hannnou)) {
+          let x=touched.offsetX;
+          let y=touched.offsetY;
+          if (size*0.9<x && x<size) {
+            if (y<size*0.1) {
+              //やめる？
+              no_hannnou=true;
+              exit = 0;
+            }
+          }
+        }
+        if(exit!=-1) {
+          ctx.fillStyle="rgb(83, 65, 0)";
+          ctx.fillRect(canvas.width*0.2,canvas.height*0.2,canvas.width*0.6,canvas.height*0.6);
+          ctx.textAlign="center";
+          ctx.textBaseline="middle";
+          ctx.font = 6*size/100+"px sans-serif";
+          ctx.fillStyle="rgb(255, 255, 255)";
+          ctx.fillText(["やめる？","本当にやめる？","りありー？"][exit],canvas.width*0.5,canvas.height*0.3);
+          
+          
+          ctx.fillText("はい",canvas.width*0.35,canvas.height*0.7);
+          ctx.fillText("いいえ",canvas.width*0.65,canvas.height*0.7);
+
+          
+          no_hannnou=true
+
+          let x=touched.offsetX;
+          let y=touched.offsetY;
+          if (size*0<x && x<size*0.5) {
+            if (canvas.height*0.6<y && y<canvas.height*0.8) {
+              exit++;
+            }
+          }
+          if (size*0.5<x && x<size*1) {
+            if (canvas.height*0.6<y && y<canvas.height*0.8) {
+              exit=-1;
+            }
+          }
+          if(exit==3) {
+            scene="title";
+          }
+        }
+
         if (touched!=false) {
           touched=false;
         }
