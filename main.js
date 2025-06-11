@@ -118,6 +118,7 @@ async function gamemain() {
             for(let i=0;i<ninnzuu;i++) {
               player_scores[player_scores.length]=[]
             }
+            undo=[]
             
           }
           touched=false;
@@ -179,19 +180,15 @@ async function gamemain() {
         ctx.fillStyle="rgb(27, 72, 0)";
         ctx.fillRect(canvas.width*0.8, canvas.height*0.5, canvas.width*0.2, canvas.height*0.5);
         losed=[];
-        losed_undo=[];
         break_ok=false;
+        for(let i=0;i<ninnzuu;i++) {
+          losed[losed.length]=false
+        }
         for(let p=0;p<ninnzuu;p++) {
           //スコア計算
           let score=0;
           let batu =0;
-          losed[ninnzuu-1-p]=false;
-          losed_undo[ninnzuu-1-p]=false;
-
-          for(let i=0;i<ninnzuu;i++) {
-            losed_undo[losed_undo.length]=false
-            losed[losed.length]=false
-          }
+          
           for(let i=0;i<player_scores[ninnzuu-1-p].length;i++) {
             if(player_scores[ninnzuu-1-p][i]=="X") {
               batu++;
@@ -199,9 +196,6 @@ async function gamemain() {
             else{
               batu=0;
               score+=player_scores[ninnzuu-1-p][i]
-            }
-            if(batu==3 && i==player_scores[ninnzuu-1-p].length-1 && p==(turn-1)%ninnzuu) {
-              losed_undo[ninnzuu-1-p]=true;
             }
             if(batu==3) {
               losed[ninnzuu-1-p]=true;
@@ -263,15 +257,16 @@ async function gamemain() {
                       if(selected_action!=-1) {
                         if(selected_action=="undo") {
                           if(turn!=0) {
-                            turn--;
-                            while(!losed_undo[turn%ninnzuu]&&losed[turn%ninnzuu]) {
-                              turn--;
-                            }
+                            player_scores=undo[undo.length-1][0]
+                            turn     =    undo[undo.length-1][1]
+                            undo.pop()
                             player_scores[turn%ninnzuu].pop();
                           }
                           
                         }
                         else{
+                          undo[undo.length]=[player_scores.concat(),turn+1-1 ]
+
                           a=player_scores[turn%ninnzuu]
                           player_scores[turn%ninnzuu][a.length]=selected_action;
                           turn++;
