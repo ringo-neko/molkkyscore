@@ -305,9 +305,24 @@ async function gamemain() {
           ctx.font = 6*size/100+"px sans-serif";
           ctx.fillStyle="rgb(255, 255, 255)";
           ctx.fillText("勝者:プレイヤー"+(a[0]+1)+"！！",canvas.width*0.5,canvas.height*0.5);
+
+          ctx.fillText("終了",canvas.width*0.5,canvas.height*0.6);
+          ctx.fillText("直す",canvas.width*0.5,canvas.height*0.7);
           if (touched!=false) {
-            scene="title";
+            x=touched.offsetX
+            y=touched.offsetY
+            if(canvas.height*0.55<y && y<canvas.height*0.65) {
+              scene="title";
+            }
+            if(canvas.height*0.65<y && y<canvas.height*0.75) {
+              player_scores=undo[undo.length-1][0]
+              turn     =    undo[undo.length-1][1]
+              undo.pop()
+              player_scores[turn%ninnzuu].pop();
+            }
           }
+          
+          
         }
         if(touched!=false && (!no_hannnou)) {
           let x=touched.offsetX;
