@@ -285,8 +285,8 @@ async function gamemain() {
             if (touched!=false) {
               let x=touched.offsetX;
               let y=touched.offsetY;
-              if(i*size/4+2 < x && x < (i+1)*size/4+2) {
-                if(p*size/6+size*0.1+2 < y && y < (p+1)*size/6+size*0.1+2) {
+              if(i*size/4+(2*size/100) < x && x < size/4-(4*size/100)                 +i*size/4+(2*size/100)) {
+                if(p*size/6+size*0.1+(2*size/100) < y && y < size/6-(4*size/100)      +p*size/6+size*0.1+(2*size/100)) {
                   if(!no_hannnou) {
                     if (keyaction[i+p*4]=="enter") {
                       if(selected_action!=-1) {
