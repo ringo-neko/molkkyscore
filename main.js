@@ -264,7 +264,9 @@ async function gamemain() {
           ctx.fillText(["","x","xx","xxx"][batu],canvas.width*0.8,y_only);
         }
         ctx.fillStyle="rgb(175, 137, 0)";
-        ctx.fillRect(size*3/4+2,2.5*size/6+size*0.1+2,size/4-4,size/6-4)
+        //test...できてるかな？
+        ctx.fillRect(3*size/4+(2*size/100),  2.5*size/6+size*0.1+(2*size/100),
+                     size/4-(4*size/100),    size/6-(4*size/100))
         t=["10点","11点","12点","0点","7点","8点","9点","直す","4点","5点","6点","決定","1点","2点","3点",""]
         
         for(let i=0;i<4;i++) {
@@ -273,7 +275,7 @@ async function gamemain() {
             if (selected_action==keyaction[i+p*4]) {
               ctx.fillStyle="rgb(242, 190, 0)";
             }
-            marurect(size,ctx, i*size/4+2,  p*size/6+size*0.1+2,size/4-4,size/6-4)
+            marurect(size,ctx, i*size/4+(2*size/100),  p*size/6+size*0.1+(2*size/100),size/4-(4*size/100),size/6-(4*size/100))
 
             ctx.fillStyle="rgb(255, 255, 255)";
             ctx.textAlign="center";
