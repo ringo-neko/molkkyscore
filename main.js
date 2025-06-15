@@ -40,7 +40,7 @@ async function gamemain() {
     let scene = "title";
 
     //setting
-    tenkey=false
+    denwa=false
     deleteenter=false
 
     const canvas = document.getElementById("canvas");
@@ -139,7 +139,7 @@ async function gamemain() {
         }
 
         t=["10点","11点","12点","0点","7点","8点","9点","直す","4点","5点","6点","決定","1点","2点","3点",""]
-        if(tenkey) {
+        if(denwa) {
           t=["1点","2点","3点","0点","4点","5点","6点","直す","7点","8点","9点","決定","10点","11点","12点",""]
         }
         if(!deleteenter){
@@ -175,10 +175,10 @@ async function gamemain() {
         if (touched!=false) {
           let y=touched.offsetY;
           if(0.75*size < y && y < 0.9*size) {
-            tenkey=false
+            denwa=true
           }
           if(0.9*size < y && y < 1.05*size) {
-            tenkey=true
+            denwa=false
           }
           if(1.05*size < y && y < 1.2*size) {
             if(deleteenter) {
@@ -360,7 +360,7 @@ async function gamemain() {
         
         t=["10点","11点","12点","0点","7点","8点","9点","直す","4点","5点","6点","決定","1点","2点","3点",""]
         keyaction=[10,11,12,"X",7,8,9,"undo",4,5,6,"enter",1,2,3,"enter"]
-        if(tenkey) {
+        if(denwa) {
           t=["1点","2点","3点","0点","4点","5点","6点","直す","7点","8点","9点","決定","10点","11点","12点",""]
           keyaction=[1,2,3,"X",4,5,6,"undo",7,8,9,"enter",10,11,12,"enter"]
         }
