@@ -88,7 +88,6 @@ async function gamemain() {
       is_noenter=true
     }
     while (true) {
-      console.log(denwa,is_noenter)
       let begin = Date.now();
       //let zoom_value = window.devicePixelRatio;
       let w=window.innerWidth;
