@@ -58,6 +58,7 @@ async function gamemain() {
     if(!Checkcookie("is_denwa_style")){
       Addcookie("is_denwa_style","no")
     }
+    console.log(!Checkcookie("is_noenter"))
     if(!Checkcookie("is_noenter")){
       Addcookie("is_noenter","no")
     }
