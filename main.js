@@ -34,6 +34,7 @@ function marurect(size,ctx,x,y,sx,sy) {
 }
 function Getcookie(name) {
   a=document.cookie.split("; ")
+  console.log(document.cookie)
   for(i=0;i<a.length;i++) {
     b=a[i].split("=")
     if(b[0]==name) {
