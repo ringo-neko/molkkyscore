@@ -53,6 +53,7 @@ function Checkcookie(name) {
     return true
   }else{
     return false
+  }
 }
 async function gamemain() {
     if(!Checkcookie("is_denwa_style")){
