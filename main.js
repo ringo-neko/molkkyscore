@@ -47,9 +47,6 @@ function Removecookie(name) {
   document.cookie=name+"=-1; expires=0"
 }
 function Addcookie(name,item) {
-  if(Checkcookie(name)) {
-    Removecookie(name)
-  }
   document.cookie=name+"="+item
 }
 function Checkcookie() {
