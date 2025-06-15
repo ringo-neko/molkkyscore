@@ -43,15 +43,12 @@ function Getcookie(name) {
     return -1
   }
 }
-function Removecookie(name) {
-  document.cookie=name+"=-1; expires=0"
-}
 function Addcookie(name,item) {
   document.cookie=name+"="+item
 }
-function Checkcookie() {
+function Checkcookie(name) {
   if (
-    document.cookie.split(";").some((item) => item.trim().startsWith("reader="))
+    document.cookie.split(";").some((item) => item.trim().startsWith(name))
   ) {
     return true
   }else{
