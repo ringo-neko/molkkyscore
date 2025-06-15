@@ -59,10 +59,10 @@ function Checkcookie(name) {
   }
 }
 async function gamemain() {
-    if(Checkcookie("is_denwa_style")){
+    if(!Checkcookie("is_denwa_style")){
       Addcookie("is_denwa_style","no")
     }
-    if(Checkcookie("is_noenter")){
+    if(!Checkcookie("is_noenter")){
       Addcookie("is_noenter","no")
     }
   
