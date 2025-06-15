@@ -69,6 +69,15 @@ async function gamemain() {
     // 画面の大きさ = 750 x 1000
     let scene = "title";
 
+    
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.addEventListener('mousedown', (e) => {(touched=e)});
+    var touched=false;
+    ninnzuu=3;
+
+
+
     //setting
     denwa=false
     deleteenter=false
@@ -78,11 +87,6 @@ async function gamemain() {
     if(Getcookie("is_noenter")=="yes") {
       is_noenter=true
     }
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
-    canvas.addEventListener('mousedown', (e) => {(touched=e)});
-    var touched=false;
-    ninnzuu=3;
     while (true) {
       console.log(denwa,is_noenter)
       let begin = Date.now();
