@@ -205,15 +205,19 @@ async function gamemain() {
           let y=touched.offsetY;
           if(0.75*size < y && y < 0.9*size) {
             denwa=true
+            Addcookie("is_denwa_style","yes")
           }
           if(0.9*size < y && y < 1.05*size) {
             denwa=false
+            Addcookie("is_denwa_style","no")
           }
           if(1.05*size < y && y < 1.2*size) {
             if(deleteenter) {
               deleteenter=false
+              Addcookie("is_noenter","no")
             }else{
               deleteenter=true
+              Addcookie("is_noenter","yes")
             }
           }
           if(1.2*size < y && y < 1.35*size) {
