@@ -85,7 +85,7 @@ async function gamemain() {
       denwa=true
     }
     if(Getcookie("is_noenter")=="yes") {
-      is_noenter=true
+      deleteenter=true
     }
     while (true) {
       let begin = Date.now();
