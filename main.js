@@ -33,15 +33,15 @@ function marurect(size,ctx,x,y,sx,sy) {
   ctx.fill();
 }
 function Getcookie(name) {
-  a=document.cookie.split("; ")
-  console.log(a)
-  for(i=0;i<a.length;i++) {
-    b=a[i].split("=")
-    if(b[0]==name) {
-      return (b[1]);
-    }
+  if(Checkcookie(name)){
+    return (document.cookie
+    .split("; ")
+    .find((row) => row.startsWith(name))
+    ?.split("=")[1]);
   }
-  return -1
+  else{
+    return -1
+  }
 }
 function Removecookie(name) {
   document.cookie=name+"=-1; expires=0"
@@ -52,12 +52,13 @@ function Addcookie(name,item) {
   }
   document.cookie=name+"="+item
 }
-function Checkcookie(name) {
-  if(Getcookie(name)==-1) {
+function Checkcookie() {
+  if (
+    document.cookie.split(";").some((item) => item.trim().startsWith("reader="))
+  ) {
     return true
   }else{
     return false
-  }
 }
 async function gamemain() {
     if(!Checkcookie("is_denwa_style")){
