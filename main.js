@@ -1,7 +1,7 @@
 
 //https://qiita.com/teloppy_com/items/cd483807813af5a4a38aに感謝
 const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//timeはミリ秒
-async function marurect(size,ctx,x,y,sx,sy) {
+function marurect(size,ctx,x,y,sx,sy) {
 
   
   marusa=10*size/100
@@ -32,17 +32,46 @@ async function marurect(size,ctx,x,y,sx,sy) {
   ctx.closePath();
   ctx.fill();
 }
-
+function Getcookie(name) {
+  a=document.cookie.split("; ")
+  for(i=0;i<a.length;i++) {
+    b=a[i].split("=")
+    if(b[0]==name) {
+      return (b[1]);
+    }
+  }
+  return -1
+}
+function Addcookie(name,item) {
+  document.cookie=name+"="+item
+}
+function Checkcookie(name) {
+  if(Getcookie(name)==-1) {
+    return true
+  }else{
+    return false
+  }
+}
 async function gamemain() {
-    
-
+    if(Checkcookie("is_denwa_style")){
+      Addcookie("is_denwa_style","no")
+    }
+    if(Checkcookie("is_noenter")){
+      Addcookie("is_noenter","no")
+    }
+  
     // 画面の大きさ = 750 x 1000
     let scene = "title";
 
     //setting
     denwa=false
     deleteenter=false
-
+    if(Getcookie("is_denwa_style")=="yes") {
+      denwa=true
+    }
+    if(Getcookie("is_noenter")=="yes") {
+      is_noenter=true
+    }
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
     canvas.addEventListener('mousedown', (e) => {(touched=e)});
