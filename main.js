@@ -84,7 +84,7 @@ async function gamemain() {
     var touched=false;
     ninnzuu=3;
     while (true) {
-      
+      console.log(denwa,is_noenter)
       let begin = Date.now();
       //let zoom_value = window.devicePixelRatio;
       let w=window.innerWidth;
