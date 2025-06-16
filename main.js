@@ -153,6 +153,9 @@ async function gamemain() {
         
         if (touched!=false) {
           let y=touched.offsetY;
+          if(0.45*size < y && y < 0.6*size) {
+            scene="player_add";
+          }
           if(0.6*size < y && y < 0.75*size) {
             scene="player";
           }
@@ -257,12 +260,20 @@ async function gamemain() {
         ctx.fillStyle="rgb(255, 255, 255)";
         ctx.fillText("へらす", size/2, 0.3*size);
 
+        ctx.fillStyle="rgb(203, 159, 0)";
+        marurect(size,ctx, 0,size*0.75,  size,size*1);
+        ctx.fillStyle="rgb(255, 255, 255)";
+        ctx.fillText("戻る", size/2, 0.3*size);
 
+
+        
         ctx.font = 24*size/100+"px sans-serif";
 
 
+
+        
         ctx.fillStyle="rgb(175, 137, 0)";
-        marurect(size,ctx, 0,size,  size,size*0.5);
+        marurect(size,ctx, 0,size,  size,size*0.3);
         ctx.fillStyle="rgb(255, 255, 255)";
         ctx.fillText("プレイ！", size/2, 1*size);
         if (touched!=false) {
@@ -273,7 +284,10 @@ async function gamemain() {
           if(0.3*size < y && y < 0.45*size) {
             ninnzuu--;
           }
-          if(1*size < y && y < 1.5*size) {
+          if(0.75*size < y && y < 1*size) {
+            scene="title";
+          }
+          if(1*size < y && y < 1.3*size) {
             scene="playing";
             turn=""
             selected_action=-1
