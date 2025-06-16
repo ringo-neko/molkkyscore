@@ -263,7 +263,7 @@ async function gamemain() {
         ctx.fillStyle="rgb(203, 159, 0)";
         marurect(size,ctx, 0,size*0.75,  size,size*1);
         ctx.fillStyle="rgb(255, 255, 255)";
-        ctx.fillText("戻る", size/2, 0.3*size);
+        ctx.fillText("戻る", size/2, 0.75*size);
 
 
         
