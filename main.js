@@ -108,6 +108,11 @@ async function gamemain() {
         ctx.fillStyle="rgb(255, 255, 255)";
         ctx.fillText("モルック", size/2, 0);
 
+        ctx.fillStyle="rgb(175, 137, 0)";
+        marurect(size,ctx, size*0.2,0.45*size,  size*0.6,0.15*size);
+        ctx.fillStyle="rgb(255, 255, 255)";
+        ctx.font = 12*size/100+"px sans-serif";
+        ctx.fillText("プレイヤー選択", size/2, 0.45*size);
 
         ctx.fillStyle="rgb(175, 137, 0)";
         marurect(size,ctx, size*0.2,0.6*size,  size*0.6,0.15*size);
