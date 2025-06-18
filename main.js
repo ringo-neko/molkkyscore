@@ -78,7 +78,7 @@ async function gamemain() {
     //setting
     denwa=false
     deleteenter=false
-    if(Getcookie("players"==-1)) {
+    if(!Checkcookie("players")) {
       players="player1@player2@player3@player4@player5@player6@player7@player8@player9@player10"
     } else {
       players=Getcookie("players")
