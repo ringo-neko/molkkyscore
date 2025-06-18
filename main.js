@@ -1,4 +1,4 @@
-//v1.2
+//v1.4
 //https://qiita.com/teloppy_com/items/cd483807813af5a4a38aに感謝
 const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//timeはミリ秒
 function marurect(size,ctx,x,y,sx,sy) {
