@@ -215,11 +215,18 @@ async function gamemain() {
             players_list=[]
             for(i=0;i<10;i++) {
               players_list[players_list.length]=document.getElementById("Textbox_edit_name_'"+i+"'").value
+              a=players_list[players_list.length-1]
+              if(a.includes("@") || a.includes("=") || a.includes(";")){
+                bad=true
+                break;
+              }
               document.getElementById("Textbox_edit_name_'"+i+"'").remove()
             }
-            players=players_list.join("@")
-            Addcookie("players",players)
-            scene="title"
+            if(!bad){
+              players=players_list.join("@")
+              Addcookie("players",players)
+              scene="title"
+            }
           }
           touched=false;
         }
