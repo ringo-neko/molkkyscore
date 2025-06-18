@@ -676,7 +676,7 @@ async function gamemain() {
           ctx.textBaseline="middle";
           ctx.font = 3*size/100+"px sans-serif";
           ctx.fillStyle="rgb(255, 255, 255)";
-          ctx.fillText("勝者:プレイヤー"+pn[a[0]]+"！！",canvas.width*0.5,canvas.height*0.5);
+          ctx.fillText("勝者:"+pn[a[0]]+"！！",canvas.width*0.5,canvas.height*0.5);
           ctx.font = 6*size/100+"px sans-serif";
           ctx.fillText("終了",canvas.width*0.5,canvas.height*0.6);
           ctx.fillText("直す",canvas.width*0.5,canvas.height*0.7);
