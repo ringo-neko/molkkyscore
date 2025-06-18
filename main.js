@@ -212,6 +212,7 @@ async function gamemain() {
         if(touched!=false) {
           let y=touched.offsetY;
           if(1.2*size < y && y < 1.5*size) {
+            bad=false
             players_list=[]
             for(i=0;i<10;i++) {
               players_list[players_list.length]=document.getElementById("Textbox_edit_name_'"+i+"'").value
