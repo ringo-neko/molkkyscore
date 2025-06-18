@@ -59,26 +59,30 @@ async function gamemain() {
     if(!Checkcookie("is_denwa_style")){
       Addcookie("is_denwa_style","no")
     }
-    console.log(!Checkcookie("is_noenter"))
     if(!Checkcookie("is_noenter")){
       Addcookie("is_noenter","no")
     }
-  
+    if(!Checkcookie("players")){
+      Addcookie("players","player1@player2@player3@player4@player5@player6@player7@player8@player9@player10")
+    }
+    
     // 画面の大きさ = 750 x 1000
     let scene = "title";
 
     
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
-    canvas.addEventListener('mousedown', (e) => {(touched=e)});
-    var touched=false;
-    ninnzuu=3;
+    touched=false;
+    
 
-
+    
 
     //setting
     denwa=false
     deleteenter=false
+    if(Getcookie("players"==-1)) {
+      players="player1@player2@player3@player4@player5@player6@player7@player8@player9@player10"
+    } else {
+      players=Getcookie("players")
+    }
     if(Getcookie("is_denwa_style")=="yes") {
       denwa=true
     }
@@ -86,19 +90,24 @@ async function gamemain() {
       deleteenter=true
     }
     while (true) {
+      canvas = document.getElementById("canvas");
+      ctx = canvas.getContext("2d");
+      removeEventListener('mousedown',canvas)
+      canvas.addEventListener('mousedown', (e) => {(touched=e)});
+
+
       let begin = Date.now();
       //let zoom_value = window.devicePixelRatio;
       let w=window.innerWidth;
       let h=window.innerHeight;
-      for(i=0;i<10000;i++) {
+      for(i=0.0;i<10000;i++) {
         if(i>w || i*1.5>h) {
-          canvas.width=i-1;
-          canvas.height=i*1.5-1.5;
+          canvas.width  = i-1;
+          canvas.height = i*1.5-1.5;
           break;
         }
-        
       }
-      let size = i;
+      let size = i-1;
       ctx.fillStyle="rgb(27, 72, 0)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       if (scene=="title") {
@@ -109,10 +118,10 @@ async function gamemain() {
         ctx.fillText("モルック", size/2, 0);
 
         ctx.fillStyle="rgb(175, 137, 0)";
-        marurect(size,ctx, size*0.2,0.45*size,  size*0.6,0.15*size);
+        marurect(size,ctx, size*0.025,0.45*size,  size*0.95,0.15*size);
         ctx.fillStyle="rgb(255, 255, 255)";
         ctx.font = 12*size/100+"px sans-serif";
-        ctx.fillText("プレイヤー選択", size/2, 0.45*size);
+        ctx.fillText("プレイヤー名編集", size/2, 0.45*size);
 
         ctx.fillStyle="rgb(175, 137, 0)";
         marurect(size,ctx, size*0.2,0.6*size,  size*0.6,0.15*size);
@@ -154,10 +163,16 @@ async function gamemain() {
         if (touched!=false) {
           let y=touched.offsetY;
           if(0.45*size < y && y < 0.6*size) {
+            for(i=0;i<10;i++){
+              document.body.innerHTML+="<textarea id=Textbox_edit_name_'"+i+"' maxlength='10' spellcheck='false'>"+players.split("@")[i]+"</textarea>"
+            }
             scene="player_add";
+            
           }
           if(0.6*size < y && y < 0.75*size) {
+            player_select=[0,0,0,0,0,0,0,0,0,0]
             scene="player";
+            ninnzuu=1;
           }
           if(0.75*size < y && y < 0.9*size) {
             scene="setting";
@@ -165,6 +180,60 @@ async function gamemain() {
           touched=false;
         }
       }
+      else if (scene=="player_add") {
+        ctx.textAlign="center";
+        ctx.textBaseline="top";
+        ctx.font=12*size/100+"px sans-serif";
+        players_list=players.split("@")
+        for(i=0;i<5;i++) {
+          q=(i  )%2
+          p=["background-color: rgb(203, 159, 0);","background-color: rgb(175, 137, 0);"]
+          a=document.getElementById("Textbox_edit_name_'"+( i*2 )+"'")
+          a.setAttribute("style","top: " +((  (window.innerHeight/2 - canvas.height/2)   +   (i*0.15*size)) / window.innerHeight *100)+"%;"+
+                                 "left: "+((  (window.innerWidth /2 - canvas.width /2)   +   0            ) / window.innerWidth  *100)+"%;"+
+                                 "width :"+size/2.02+"px;"+
+                                 "height:"+0.15*size+"px;"+
+                                 "font-size: "+size/25+"px;"+
+                                 p[q])
+          q=(i+1)%2
+          b=document.getElementById("Textbox_edit_name_'"+(i*2+1)+"'")
+          b.setAttribute("style","top: " +((  (window.innerHeight/2 - canvas.height/2)   +   (i*0.15*size)) / window.innerHeight *100)+"%;"+
+                                 "left: "+((  (window.innerWidth /2 - canvas.width /2)   +   size/2       ) / window.innerWidth  *100)+"%;"+
+                                 "width :"+size/2.02+"px;"+
+                                 "height:"+0.15*size+"px;"+
+                                 "font-size: "+size/25+"px;"+
+                                 p[q])
+        }
+        
+        ctx.fillStyle="rgb(203, 159, 0)";
+        marurect(size,ctx, 0,size*1.2,  size,size*0.3);
+        ctx.fillStyle="rgb(255, 255, 255)";
+        ctx.fillText("戻る", size/2, 1.2*size);
+        if(touched!=false) {
+          let y=touched.offsetY;
+          if(1.2*size < y && y < 1.5*size) {
+            players_list=[]
+            for(i=0;i<10;i++) {
+              players_list[players_list.length]=document.getElementById("Textbox_edit_name_'"+i+"'").value
+              document.getElementById("Textbox_edit_name_'"+i+"'").remove()
+            }
+            players=players_list.join("@")
+            Addcookie("players",players)
+            scene="title"
+          }
+          touched=false;
+        }
+      }
+
+
+
+
+
+
+
+
+
+
       else if (scene=="setting") {
         //////////////////////////////////////////////////////////////////////////////////////setting
         ctx.textBaseline="top";
@@ -245,20 +314,40 @@ async function gamemain() {
       else if (scene=="player") {
         ctx.textAlign="center";
         ctx.textBaseline="top";
-        ctx.fillStyle="rgb(255, 255, 255)";
-        ctx.font = 12*size/100+"px sans-serif";
-        ctx.fillText("人数："+ninnzuu, size/2, 0*size);
+        ctx.font=size/25+"px sans-serif";
+        players_list=players.split("@")
+        p=["rgb(203, 159, 0)","rgb(175, 137, 0)","rgb(255, 200, 0)"]
+        for(i=0;i<5;i++) {
+          
+
+          ctx.fillStyle=p[(i  )%2];
+          if(player_select[i*2]!=0) {
+            ctx.fillStyle=p[2]
+          }
+          marurect(size,ctx, 0,size*(i*0.15),  size/2,size*0.15);
+          ctx.fillStyle="rgb(255, 255, 255)";
+          ctx.font=size/25+"px sans-serif";
+          ctx.fillText(players_list[i*2], size/4, (i*0.15)*size);
+          if(player_select[i*2]!=0){
+            ctx.font=size/12+"px sans-serif";
+            ctx.fillText(player_select[i*2]+"", size/4, (i*0.15)*size+size/16);
+          }
 
 
-        ctx.fillStyle="rgb(175, 137, 0)";
-        marurect(size,ctx, 0,size*0.15,  size,size*0.15);
-        ctx.fillStyle="rgb(255, 255, 255)";
-        ctx.fillText("ふやす", size/2, 0.15*size);
 
-        ctx.fillStyle="rgb(203, 159, 0)";
-        marurect(size,ctx, 0,size*0.3,  size,size*0.15);
-        ctx.fillStyle="rgb(255, 255, 255)";
-        ctx.fillText("へらす", size/2, 0.3*size);
+          ctx.fillStyle=p[(i+1)%2];
+          if(player_select[i*2+1]!=0) {
+            ctx.fillStyle=p[2];
+          }
+          marurect(size,ctx, size/2,size*(i*0.15),  size/2,size*0.15);
+          ctx.fillStyle="rgb(255, 255, 255)";
+          ctx.font=size/25+"px sans-serif";
+          ctx.fillText(players_list[i*2+1], size/4+size/2, (i*0.15)*size);
+          if(player_select[i*2+1]!=0){
+            ctx.font=size/12+"px sans-serif";
+            ctx.fillText(player_select[i*2+1]+"", size/4+size/2, (i*0.15)*size+size/16);
+          }
+        }
 
         ctx.fillStyle="rgb(203, 159, 0)";
         marurect(size,ctx, 0,size*0.85,  size,size*0.15);
@@ -277,40 +366,90 @@ async function gamemain() {
         ctx.fillStyle="rgb(255, 255, 255)";
         ctx.fillText("プレイ！", size/2, 1*size);
         if (touched!=false) {
+          let x=touched.offsetX
           let y=touched.offsetY
-          if(0.15*size < y && y < 0.3*size) {
-            ninnzuu++;
+          for(i=0;i<5;i++) {
+            if(0.15*i*size < y && y < 0.15*(i+1)*size) {
+              if(x>size/2) {
+                if(player_select[i*2+1]!=0){
+                  //ここで減らす
+                  for(n=0;n<10;n++) {
+                    if (player_select[n]>player_select[i*2+1]){
+                      player_select[n]--
+                    }
+                  }
+
+                  player_select[i*2+1]=0
+                  ninnzuu--
+                  
+                }
+                else if(ninnzuu!=6){
+                  player_select[i*2+1]=ninnzuu
+                  ninnzuu++
+                }
+                
+              }else{
+                if(player_select[i*2]!=0){
+                  //ここで減らす
+                  for(n=0;n<10;n++) {
+                    if (player_select[n]>player_select[i*2]){
+                      player_select[n]--
+                    }
+                  }
+
+                  player_select[i*2]=0
+                  ninnzuu--
+                  
+                }
+                else if (ninnzuu!=6){
+                  player_select[i*2  ]=ninnzuu
+                  ninnzuu++
+                }
+                
+              }
+              
+            }
           }
-          if(0.3*size < y && y < 0.45*size) {
-            ninnzuu--;
-          }
-          if(0.75*size < y && y < 1*size) {
+          
+          if(0.85*size < y && y < 1*size) {
             scene="title";
           }
           if(1*size < y && y < 1.3*size) {
-            scene="playing";
-            turn=""
-            selected_action=-1
-            player_scores=[]
-            losed=[]
-            no_hannnou=false;
-            exit = -1;
-            for(let i=0;i<ninnzuu;i++) {
-              player_scores[player_scores.length]=[]
+            if(ninnzuu>1){
+              players_list=players.split("@")
+              //player_names
+              pn=["None","","","","",""]
+              
+              for(n=0;n<10;n++){
+                pn[player_select[n]]=players_list[n]
+              }
+              pn=[pn[1],pn[2],pn[3],pn[4],pn[5]]
+              ninnzuu--
+              scene="playing";
+              turn=""
+              selected_action=-1
+              player_scores=[]
+              losed=[]
+              no_hannnou=false;
+              exit = -1;
+              for(let i=0;i<ninnzuu;i++) {
+                player_scores[player_scores.length]=[]
+              }
+              undo=[]
             }
-            undo=[]
-            
           }
           touched=false;
         }
-        if(ninnzuu<3) {
-          ninnzuu=2;
-        }
-        if(ninnzuu>5) {
-          ninnzuu=5;
-        }
-        
       }
+
+
+
+
+
+
+
+
+
       else if (scene=="playing") {
         ctx.fillStyle="rgb(175, 35, 0)";
         marurect(size,ctx, size*0.9, 0, size*0.2,size*0.1)
@@ -326,16 +465,16 @@ async function gamemain() {
         ctx.textBaseline="top";
         ctx.font = 6*size/100+"px sans-serif";
         ctx.fillStyle="rgb(255, 255, 255)";
-        ctx.fillText("プレイヤー"+(turn%ninnzuu+1)+"の番です。ターン"+(turn+1), 0,0);
+        ctx.fillText(pn[turn%ninnzuu]+"の番です。ターン"+(turn+1), 0,0);
         
         let square_1=15;
         let square_2=10;
         start=0;
         l=Math.trunc((turn+ninnzuu)/ninnzuu);
         xhosei=0
-        if(l>5) {
-          start=Math.trunc((turn+ninnzuu)/ninnzuu)-5;
-          xhosei=square_1*size/100*(l-5);
+        if(l>3) {
+          start=Math.trunc((turn+ninnzuu)/ninnzuu)-3;
+          xhosei=square_1*size/100*(l-3);
         }
         for(let i=start;i<l;i++) {
           for(let p=0;p<ninnzuu;p++) {
@@ -344,8 +483,8 @@ async function gamemain() {
             if(losed[ninnzuu-1-p]) {
               ctx.fillStyle="rgb(175, 58, 0)";
             }
-            marurect(size,ctx, i*square_1*size/100-xhosei ,(-p)*square_1*size/100+size*1.5-size/100*square_2,square_2*size/100,square_2*size/100)
-            xy=[i*square_1*size/100 + square_2*size/200  -xhosei,      (-p)*square_1*size/100+size*1.5-size/100*square_2 + square_2*size/200]
+            marurect(size,ctx, i*square_1*size/100-xhosei+size*0.3 ,(-p)*square_1*size/100+size*1.5-size/100*square_2,square_2*size/100,square_2*size/100)
+            xy=[i*square_1*size/100 + square_2*size/200  -xhosei+size*0.3,      (-p)*square_1*size/100+size*1.5-size/100*square_2 + square_2*size/200]
             ctx.textAlign="center";
             ctx.textBaseline="middle";
             ctx.font = 8*size/100+"px sans-serif";
@@ -406,9 +545,11 @@ async function gamemain() {
 
           //y_only=(-(ninnzuu-1-p))*square_1*size/100+size*1.5-size/100*square_2 + square_2*size/200
           y_only=(-p)*square_1*size/100+size*1.5-size/100*square_2 + square_2*size/200
-          ctx.fillText("="+score+"点",canvas.width*0.8,y_only-size/30);
+          ctx.fillText("="+score+"点",canvas.width*0.83,y_only-size/30);
           ctx.font = 6*size/100+"px sans-serif";
-          ctx.fillText(["","x","xx","xxx"][batu],canvas.width*0.8,y_only);
+          ctx.fillText(["","x","xx","xxx"][batu],canvas.width*0.83,y_only);
+          ctx.font = 3*size/100+"px sans-serif";
+          ctx.fillText(pn[p],0,y_only);
         }
 
         ctx.fillStyle="rgb(175, 137, 0)";
@@ -525,10 +666,10 @@ async function gamemain() {
           marurect(size,ctx, canvas.width*0.2,canvas.height*0.2,canvas.width*0.6,canvas.height*0.6);
           ctx.textAlign="center";
           ctx.textBaseline="middle";
-          ctx.font = 6*size/100+"px sans-serif";
+          ctx.font = 3*size/100+"px sans-serif";
           ctx.fillStyle="rgb(255, 255, 255)";
-          ctx.fillText("勝者:プレイヤー"+(a[0]+1)+"！！",canvas.width*0.5,canvas.height*0.5);
-
+          ctx.fillText("勝者:プレイヤー"+pn[a[0]]+"！！",canvas.width*0.5,canvas.height*0.5);
+          ctx.font = 6*size/100+"px sans-serif";
           ctx.fillText("終了",canvas.width*0.5,canvas.height*0.6);
           ctx.fillText("直す",canvas.width*0.5,canvas.height*0.7);
           if (touched!=false) {
