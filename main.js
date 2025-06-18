@@ -549,7 +549,7 @@ async function gamemain() {
           ctx.font = 6*size/100+"px sans-serif";
           ctx.fillText(["","x","xx","xxx"][batu],canvas.width*0.83,y_only);
           ctx.font = 3*size/100+"px sans-serif";
-          ctx.fillText(pn[p],0,y_only);
+          ctx.fillText(pn[(ninnzuu-1-p)],0,y_only);
         }
 
         ctx.fillStyle="rgb(175, 137, 0)";
