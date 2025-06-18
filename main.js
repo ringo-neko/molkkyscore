@@ -63,7 +63,7 @@ async function gamemain() {
       Addcookie("is_noenter","no")
     }
     if(!Checkcookie("players")){
-      Addcookie("players","player1@player2@player3@player4@player5@player6@player7@player8@player9@player10")
+      Addcookie("players",encodeURLComponent("player1@player2@player3@player4@player5@player6@player7@player8@player9@player10"))
     }
     
     // 画面の大きさ = 750 x 1000
@@ -81,7 +81,7 @@ async function gamemain() {
     if(!Checkcookie("players")) {
       players="player1@player2@player3@player4@player5@player6@player7@player8@player9@player10"
     } else {
-      players=Getcookie("players")
+      players=decodeURLComponent(Getcookie("players"))
     }
     if(Getcookie("is_denwa_style")=="yes") {
       denwa=true
@@ -225,7 +225,7 @@ async function gamemain() {
             }
             if(!bad){
               players=players_list.join("@")
-              Addcookie("players",players)
+              Addcookie("players",encodeURIComponent(players))
               scene="title"
             }
           }
