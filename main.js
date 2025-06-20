@@ -179,7 +179,7 @@ async function gamemain() {
               document.body.innerHTML+="<textarea id=Textbox_edit_name_'"+i+"' maxlength='10' spellcheck='false'>"+players.split("@")[i]+"</textarea>"
             }
             scene="player_add";
-            added=true
+            added=false
             
           }
           if(0.6*size < y && y < 0.75*size) {
