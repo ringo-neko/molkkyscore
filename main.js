@@ -32,28 +32,40 @@ function marurect(size,ctx,x,y,sx,sy) {
   ctx.closePath();
   ctx.fill();
 }
+//function Getcookie(name) {
+//  if(Checkcookie(name)){
+//    return (document.cookie
+//    .split("; ")
+//    .find((row) => row.startsWith(name))
+//    ?.split("=")[1]);
+//  }
+//  else{
+//    return -1
+//  }
+//}
+//function Addcookie(name,item) {
+//  document.cookie=name+"="+item
+//}
+//function Checkcookie(name) {
+//  if (
+//    document.cookie.split(";").some((item) => item.trim().startsWith(name))
+//  ) {
+//    return true
+//  }else{
+//    return false
+//  }
+//}
 function Getcookie(name) {
-  if(Checkcookie(name)){
-    return (document.cookie
-    .split("; ")
-    .find((row) => row.startsWith(name))
-    ?.split("=")[1]);
-  }
-  else{
-    return -1
-  }
+  //webstorageに変更
+  return localStorage.getItem(name);
 }
-function Addcookie(name,item) {
-  document.cookie=name+"="+item
+
+function Addcookie(name, item) {
+  localStorage.setItem(name, item);
 }
+
 function Checkcookie(name) {
-  if (
-    document.cookie.split(";").some((item) => item.trim().startsWith(name))
-  ) {
-    return true
-  }else{
-    return false
-  }
+  return localStorage.getItem(name) !== null;
 }
 async function gamemain() {
     if(!Checkcookie("is_denwa_style")){
