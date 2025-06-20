@@ -212,8 +212,7 @@ async function gamemain() {
                                    p[q])
             q=(i+1)%2
             b=document.getElementById("Textbox_edit_name_'"+(i*2+1)+"'")
-            b.setAttribute("style","position: absolute;"+
-                                   "top: " +((  (window.innerHeight/2 - canvas.height/2)   +   (i*0.15*size)) / window.innerHeight *100)+"%;"+
+            b.setAttribute("style","top: " +((  (window.innerHeight/2 - canvas.height/2)   +   (i*0.15*size)) / window.innerHeight *100)+"%;"+
                                    "left: "+((  (window.innerWidth /2 - canvas.width /2)   +   size/2       ) / window.innerWidth  *100)+"%;"+
                                    "width :"+size/2.02+"px;"+
                                    "height:"+0.15*size+"px;"+
