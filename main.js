@@ -179,6 +179,7 @@ async function gamemain() {
               document.body.innerHTML+="<textarea id=Textbox_edit_name_'"+i+"' maxlength='10' spellcheck='false'>"+players.split("@")[i]+"</textarea>"
             }
             scene="player_add";
+            added=true
             
           }
           if(0.6*size < y && y < 0.75*size) {
@@ -197,26 +198,30 @@ async function gamemain() {
         ctx.textBaseline="top";
         ctx.font=12*size/100+"px sans-serif";
         players_list=players.split("@")
-        for(i=0;i<5;i++) {
-          q=(i  )%2
-          p=["background-color: rgb(203, 159, 0);","background-color: rgb(175, 137, 0);"]
-          a=document.getElementById("Textbox_edit_name_'"+( i*2 )+"'")
-          a.setAttribute("style","top: " +((  (window.innerHeight/2 - canvas.height/2)   +   (i*0.15*size)) / window.innerHeight *100)+"%;"+
-                                 "left: "+((  (window.innerWidth /2 - canvas.width /2)   +   0            ) / window.innerWidth  *100)+"%;"+
-                                 "width :"+size/2.02+"px;"+
-                                 "height:"+0.15*size+"px;"+
-                                 "font-size: "+size/25+"px;"+
-                                 p[q])
-          q=(i+1)%2
-          b=document.getElementById("Textbox_edit_name_'"+(i*2+1)+"'")
-          b.setAttribute("style","top: " +((  (window.innerHeight/2 - canvas.height/2)   +   (i*0.15*size)) / window.innerHeight *100)+"%;"+
-                                 "left: "+((  (window.innerWidth /2 - canvas.width /2)   +   size/2       ) / window.innerWidth  *100)+"%;"+
-                                 "width :"+size/2.02+"px;"+
-                                 "height:"+0.15*size+"px;"+
-                                 "font-size: "+size/25+"px;"+
-                                 p[q])
+        if(!added) {
+          added=true
+          for(i=0;i<5;i++) {
+            q=(i  )%2
+            p=["background-color: rgb(203, 159, 0);","background-color: rgb(175, 137, 0);"]
+            a=document.getElementById("Textbox_edit_name_'"+( i*2 )+"'")
+            a.setAttribute("style","position: absolute;"+
+                                   "top: " +((  (window.innerHeight/2 - canvas.height/2)   +   (i*0.15*size)) / window.innerHeight *100)+"%;"+
+                                   "left: "+((  (window.innerWidth /2 - canvas.width /2)   +   0            ) / window.innerWidth  *100)+"%;"+
+                                   "width :"+size/2.02+"px;"+
+                                   "height:"+0.15*size+"px;"+
+                                   "font-size: "+size/25+"px;"+
+                                   p[q])
+            q=(i+1)%2
+            b=document.getElementById("Textbox_edit_name_'"+(i*2+1)+"'")
+            b.setAttribute("style","position: absolute;"+
+                                   "top: " +((  (window.innerHeight/2 - canvas.height/2)   +   (i*0.15*size)) / window.innerHeight *100)+"%;"+
+                                   "left: "+((  (window.innerWidth /2 - canvas.width /2)   +   size/2       ) / window.innerWidth  *100)+"%;"+
+                                   "width :"+size/2.02+"px;"+
+                                   "height:"+0.15*size+"px;"+
+                                   "font-size: "+size/25+"px;"+
+                                   p[q])
+          }
         }
-        
         ctx.fillStyle="rgb(203, 159, 0)";
         marurect(size,ctx, 0,size*1.2,  size,size*0.3);
         ctx.fillStyle="rgb(255, 255, 255)";
