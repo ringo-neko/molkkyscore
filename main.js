@@ -438,7 +438,7 @@ async function gamemain() {
             scene="title";
           }
           if(1*size < y && y < 1.3*size) {
-            if(ninnzuu>1){
+            if(ninnzuu>2){
               players_list=players.split("@")
               //player_names
               pn=["None","","","","",""]
